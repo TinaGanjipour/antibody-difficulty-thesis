@@ -1,0 +1,160 @@
+{
+  "dataset": {
+    "feature_set": "engineered",
+    "n_targets": 483,
+    "agree_tol": 1.5,
+    "hard_ge": 3.0,
+    "target_rmsd_col": "rmsd_h3_ctx",
+    "feature_count": 32,
+    "hard_rate_overall": 0.4409937888198758,
+    "counts_overall": {
+      "not_hard": 270,
+      "hard": 213
+    },
+    "split": {
+      "test_size": 0.15,
+      "n_train_pool": 410,
+      "n_test": 73,
+      "hard_rate_train_pool": 0.44146341463414634,
+      "hard_rate_test": 0.4383561643835616
+    },
+    "leakage_guard": {
+      "feature_policy": "only h3_* engineered features (excluding h3_seq) + ESM embeddings from h3_seq",
+      "explicitly_excluded_patterns": "(rmsd|error|label|target|y_|confidence|conf|plddt|pae|iptm|ptm|score|prob)",
+      "note": "RMSD is used ONLY for filtering and labels, never as an input feature"
+    }
+  },
+  "train_cv": {
+    "train_cv": {
+      "n_samples": 410,
+      "n_splits": 5,
+      "n_repeats": 5,
+      "total_splits": 25
+    },
+    "models": {
+      "regressor": "XGBReg",
+      "hard_risk_base": "xgb_classifier",
+      "calibration": "sigmoid"
+    },
+    "metrics": {
+      "reg_mae": {
+        "mean": 1.02431987795415,
+        "std": 0.07600160901063657
+      },
+      "reg_rmse": {
+        "mean": 1.4285704958981569,
+        "std": 0.15748680059971545
+      },
+      "hard_pr_auc_ap": {
+        "mean": 0.7372840090728316,
+        "std": 0.046108106592711695
+      },
+      "hard_roc_auc": {
+        "mean": 0.7536859903381644,
+        "std": 0.04647989615864967
+      },
+      "hard_brier": {
+        "mean": 0.20239388263101937,
+        "std": 0.014841760706574962
+      },
+      "hard_f1_thresholded": {
+        "mean": 0.6505290266539783,
+        "std": 0.057293374993873096
+      },
+      "decision_threshold_for_hard": {
+        "mean": 0.41322300493717196,
+        "std": 0.08209551108476193
+      },
+      "hard_rank_metrics_from_p_hard_cv_avg": {
+        "p@10": {
+          "precision": 1.0,
+          "recall": 0.055248618784530384,
+          "tp": 10.0,
+          "k_eff": 10.0,
+          "n_pos": 181.0
+        },
+        "p@20": {
+          "precision": 0.9,
+          "recall": 0.09944751381215469,
+          "tp": 18.0,
+          "k_eff": 20.0,
+          "n_pos": 181.0
+        },
+        "p@50": {
+          "precision": 0.86,
+          "recall": 0.23756906077348067,
+          "tp": 43.0,
+          "k_eff": 50.0,
+          "n_pos": 181.0
+        }
+      },
+      "reg_conformal_alpha": 0.1,
+      "reg_conformal_radius": 2.124169334228516
+    },
+    "artifacts": {
+      "train_cv_predictions_csv": "predictions_train_cv_avg.csv"
+    }
+  },
+  "test": {
+    "test_set": {
+      "n_samples": 73,
+      "hard_rate": 0.4383561643835616
+    },
+    "models": {
+      "regressor": "XGBReg",
+      "hard_risk_base": "xgb_classifier",
+      "calibration": "sigmoid"
+    },
+    "metrics": {
+      "reg_mae": 1.0927005895654862,
+      "reg_rmse": 1.494399332902912,
+      "reg_conformal_alpha": 0.1,
+      "reg_conformal_radius": 2.124169334228516,
+      "reg_pi_coverage": 0.8904109589041096,
+      "hard_pr_auc_ap": 0.7459610592822037,
+      "hard_roc_auc": 0.8140243902439024,
+      "hard_brier": 0.18055669121931903,
+      "decision_threshold_for_hard": 0.44095662236213684,
+      "confusion": {
+        "tp": 25,
+        "fp": 9,
+        "tn": 32,
+        "fn": 7
+      },
+      "precision": 0.7352941176470589,
+      "recall": 0.78125,
+      "f1": 0.7575757575757576,
+      "hard_rank_metrics_from_p_hard": {
+        "p@10": {
+          "precision": 0.8,
+          "recall": 0.25,
+          "tp": 8.0,
+          "k_eff": 10.0,
+          "n_pos": 32.0
+        },
+        "p@20": {
+          "precision": 0.8,
+          "recall": 0.5,
+          "tp": 16.0,
+          "k_eff": 20.0,
+          "n_pos": 32.0
+        },
+        "p@50": {
+          "precision": 0.56,
+          "recall": 0.875,
+          "tp": 28.0,
+          "k_eff": 50.0,
+          "n_pos": 32.0
+        }
+      }
+    },
+    "artifacts": {
+      "test_predictions_csv": "predictions_test.csv",
+      "test_pr_png": "test_hard_pr.png",
+      "test_roc_png": "test_hard_roc.png",
+      "test_reliability_png": "test_hard_reliability.png",
+      "test_reg_scatter_png": "test_reg_scatter.png",
+      "test_reg_error_hist_png": "test_reg_error_hist.png"
+    }
+  }
+}

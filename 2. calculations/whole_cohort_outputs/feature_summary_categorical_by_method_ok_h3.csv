@@ -1,0 +1,5 @@
+method,feature,value,n
+ABodyBuilder2,h3_has_glyco_motif,False,561
+ABodyBuilder2,h3_has_glyco_motif,True,4
+IGFold,h3_has_glyco_motif,False,567
+IGFold,h3_has_glyco_motif,True,4
