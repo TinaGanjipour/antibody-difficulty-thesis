@@ -28,41 +28,52 @@ This project:
 - A sequence-only “difficulty score” was trained using XGBoost (classification + regression) and interpreted with SHAP. CDR-H3 length and protein language-model embeddings (ESM2) carried the strongest signal.
 
 ## Repository content
-.
-├── data/
-│   ├── raw/
-│   │   ├── sabdab/                # Raw SAbDab summary tables
-│   │   └── pdb_mmcif/             # Downloaded experimental mmCIF files from RCSB
-│   ├── processed/
-│   │   ├── manifest/              # Sample sheets, pair indices, manifests
-│   │   ├── exports/               # Cleaned tables used in analysis (CSV/TSV)
-│   │   └── qc/                    # QC outputs (mmCIF validation, checks)
-│   └── .ipynb_checkpoints/        # Jupyter artifacts
-│
-├── rmsd/
-│   ├── rcsb/                      # Experimental PDB structures (PDB format)
-│   ├── whole_cohort_outputs/      # RMSD analyses, ECDFs, scatter/violin plots
-│   ├── results_seq.csv            # Sequence-level RMSD summaries
-│   └── predictions.csv            # Predictor-specific RMSD tables
-│
-├── model/
-│   ├── train_difficulty_score*.py # Difficulty score training script
-│   ├── h3_features.csv            # Final feature table for CDR-H3
-│   ├── outputs/                   # Main model outputs (figures, CSVs, JSON)
-│   ├── outputs_engineered/        # Engineered-feature models
-│   ├── outputs_ablation*/         # Feature ablation studies
-│   ├── outputs_esm_alpha10/       # Final ESM-based thesis models & plots
-│   ├── out_diff/, out_bound/,     # Alternative modeling variants
-│   └── *.joblib                   # Trained regressors / classifiers
-│
-├── notebooks/
-│   ├── dataset.ipynb              # Dataset construction & inspection
-│   ├── ANARCI.py                  # Numbering / annotation helpers
-│
-├── environment.yml                # Micromamba / conda environment
-├── environment.lock.yml           # Locked environment (reproducibility)
-├── .pre-commit-config.yaml        # Formatting & hygiene hooks
-└── .gitignore
+* `data/`
+
+  * `raw/`
+
+    * `sabdab/` — SAbDab exports
+    * `pdb_mmcif/` — experimental structures in mmCIF format
+  * `processed/` — processed and curated data products
+
+    * `manifest/` — sample sheets, pair indices, manifests
+    * `exports/` — cleaned tables used in analysis (CSV/TSV)
+    * `qc/` — quality-control outputs (mmCIF validation, consistency checks)
+  * `.ipynb_checkpoints/` — Jupyter notebook artifacts
+
+* `rmsd/` — structural evaluation outputs
+
+  * `rcsb/` — experimental structures converted to PDB format for RMSD evaluation
+  * `whole_cohort_outputs/` — RMSD analyses, ECDFs, scatter plots, and violin plots
+  * `results_seq.csv` — sequence-level RMSD summaries
+  * `predictions.csv` — predictor-specific RMSD tables
+  * `h3_features.csv` — final CDR-H3 feature table
+
+* `model/` — difficulty score modeling and analysis
+
+  * `train_difficulty_score*.py` — difficulty score training scripts (multiple versions)
+  * `h3_features.csv` — input of difficulty score model
+  * `outputs/` — main model outputs (figures, CSVs, JSON summaries)
+  * `outputs_engineered/` — engineered-feature models
+  * `outputs_ablation*/` — feature ablation studies
+  * `outputs_esm_alpha10/` — final ESM-based thesis models and plots
+  * `out_diff/`, `out_bound/` — alternative modeling variants
+  * `*.joblib` — trained regressors and classifiers
+
+* `notebooks/`
+
+  * `dataset.ipynb` — dataset construction and inspection
+  * `ANARCI.py` — antibody numbering and annotation helpers
+
+* `src/` — reusable Python utilities (mapping, RMSD computation, QC helpers)
+
+* `environment.yml` — micromamba / conda environment specification
+
+* `environment.lock.yml` — locked environment for reproducibility
+
+* `.pre-commit-config.yaml` — formatting and hygiene hooks
+
+* `.gitignore`
 
 ## Methods overview (pipeline)
 
