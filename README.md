@@ -67,7 +67,7 @@ This project:
 
 * `src/` — reusable Python utilities (mapping, RMSD computation, QC helpers)
 
-* `environment.yml` — micromamba / conda environment specification
+* `environment.yml` — micromamba environment specification
 
 * `environment.lock.yml` — locked environment for reproducibility
 
