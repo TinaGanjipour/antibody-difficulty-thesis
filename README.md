@@ -30,20 +30,19 @@ This project:
 ## Repository content
 
 - `data/`
-  - `raw/` — raw exports (e.g., SAbDab tables) *(not always included if licensing/size constraints apply)*
+  - `raw/` — raw exports (e.g., SAbDab tables)
   - `processed/` — cleaned tables, feature tables, sample sheets, deduplicated target lists
 - `structures/`
   - `rcsb_mmcif/` — downloaded experimental mmCIF files
   - `predictions/`
     - `igfold/`
     - `abodybuilder2/`
-    - `alphafold3/` *(if included; often excluded due to size/terms)*
+    - `alphafold3/`
 - `src/` — Python modules implementing curation, mapping, RMSD evaluation, and ML training
 - `notebooks/` — exploratory analysis / figure generation notebooks
 - `scripts/` — CLI-style scripts for end-to-end runs
 - `results/` — tables, plots, logs, and summary outputs
-- `env/` or `requirements/` — environment specs (conda/pip), pinned versions
-- `thesis/` — thesis source or PDF (optional)
+- `env/` or `requirements/` — environment specs (micromamba/pip)
 
 ## Methods overview (pipeline)
 
