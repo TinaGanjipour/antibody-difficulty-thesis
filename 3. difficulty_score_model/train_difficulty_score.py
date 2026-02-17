@@ -840,3 +840,26 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+"""
+References:
+1. Mohamed Abdelhamid and Abhyuday Desai. 2024. Balancing the Scales: A Comprehensive Study on Tackling Class Imbalance in Binary Classification.
+2. Björn Böken. 2021. On the appropriateness of Platt scaling in classifier calibration.
+3. Jason Brownlee. 2021. A Gentle Introduction to Threshold-Moving for Imbalanced Classification.
+4. Georgios Charizanos, Hakan Demirhan, and Derya Içen. 2024. Binary Classification with Fuzzy Logistic Regression under Class Imbalance and Complete Separation in Clinical Studies.
+5. Thomas M. Cover and Joy A. Thomas. 2006. Elements of Information Theory (2 ed.). John Wiley & Sons, Hoboken, NJ, USA.
+6. Janez Demšar. 2006. Statistical Comparisons of Classifiers over Multiple Data Sets. Journal of Machine Learning Research 7 (2006), 1–30.
+7. Hugging Face. 2025. ESM Model Documentation. [https://huggingface.co/docs/transformers/en/model_doc/esm]
+8. Henry B. Mann and Donald R. Whitney. 1947. On a Test of Whether One of Two Random Variables Is Stochastically Larger than the Other.
+9. Matthew B. A. McDermott, Lasse Hyldig Hansen, Haoran Zhang, Giovanni Angelotti, and Jack Gallifant. 2024. A Closer Look at AUROC and AUPRC under Class Imbalance.
+10. Ulf Norinder and Scott Boyer. 2017. Binary Classification of Imbalanced Datasets Using Conformal Prediction.
+11. Eric Richardson, Rodrigo Trevizani, Jason A. Greenbaum, Hannah Carter, Morten Nielsen, and Bjoern Peters. 2024. The Receiver Operating Characteristic Curve Accurately Assesses Imbalanced Datasets.
+12. scikit-learn: Machine Learning in Python. [https://scikit-learn.org/stable/](https://scikit-learn.org/stable/).
+13. Claude E. Shannon. 1948. A Mathematical Theory of Communication.
+14. Philipp Thölke, Yorguin-Jose Mantilla-Ramos, Hamza Abdelhedi, Charlotte Maschke, Arthur Dehgan, Yann Harel, Anirudha Kemtur, Loubna Mekki Berrada, Myriam Sahraoui, Tammy Young, Antoine Bellemare Pépin, Clara El Khantour, Mathieu Landry, Annalisa Pascarella, Vanessa Hadid, Etienne Combrisson, Jordan O’Byrne, and Karim Jerbi. 2023. Class Imbalance Should Not Throw You Off Balance: Choosing the Right Classifiers and Performance Metrics for Brain Decoding with Imbalanced Data.
+15. U. Vignesh, R. Parvathi, and K. Gokul Ram. 2024. Ensemble Deep Learning Model for Protein Secondary Structure Prediction Using NLP Metrics and Explainable AI. Results in Engineering.
+16. Vladimir Vovk. 2012. Conditional Validity of Inductive Conformal Predictors.
+17. XGBoost Documentation. [https://xgboost.readthedocs.io/en/stable/](https://xgboost.readthedocs.io/en/stable/).
+18. Yaowu Zhang, Yeqing Zhou, and Liping Zhu. 2025. Interval Quantile Correlations with Applications to Testing High-Dimensional Quantile Effects.
+19. Scott M. Lundberg and Su-In Lee. 2017. A Unified Approach to Interpreting Model Predictions.
+"""
