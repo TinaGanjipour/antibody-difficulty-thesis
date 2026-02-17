@@ -368,3 +368,98 @@ def main():
 
 if __name__ == "__main__":
     main()
+"""
+References:
+[1] Marks & Deane, 2017
+Antibody H3 Structure Prediction.
+Computational and Structural Biotechnology Journal 15: 222–231.
+DOI: 10.1016/j.csbj.2017.01.010
+
+[2] Regep et al., 2017
+The H3 loop of antibodies shows unique structural characteristics.
+Proteins 85(7): 1311–1318.
+DOI: 10.1002/prot.25291
+
+[3] Tsuchiya & Mizuguchi, 2016
+The Diversity of H3 Loops Determines the Antigen-Binding Tendencies of Antibody CDR Loops.
+Protein Science 25(4): 815–825.
+DOI: 10.1002/pro.2874
+
+[4] Shannon, 1948
+A Mathematical Theory of Communication.
+Bell System Technical Journal 27: 379–423, 623–656.
+
+[5] Cover & Thomas, 2006
+Elements of Information Theory (2nd ed.).
+Wiley.
+
+[6] Xu et al., 2025
+In-Depth Study of Low-Complexity Domains: From Structural Diversity to Disease Mechanisms.
+Cells 14(22): 1752.
+DOI: 10.3390/cells14221752
+
+[7] Donald et al., 2011
+Salt bridges: geometrically specific, designable interactions.
+Proteins 79(3): 898–915.
+DOI: 10.1002/prot.22927
+
+[8] Li et al., 2015
+Rigidity Emerges during Antibody Evolution…
+PLoS Computational Biology 11(7): e1004327.
+DOI: 10.1371/journal.pcbi.1004327
+
+[9] Sangha et al., 2017
+Role of Non-local Interactions between CDR Loops…
+Structure 25(12): 1820–1828.e2.
+DOI: 10.1016/j.str.2017.10.005
+
+[10] Kyte & Doolittle, 1982
+A Simple Method for Displaying the Hydropathic Character of a Protein.
+Journal of Molecular Biology 157(1): 105–132.
+DOI: 10.1016/0022-2836(82)90515-0
+
+[11] Miao et al., 2004
+The Optimal Fraction of Hydrophobic Residues Required to Ensure Protein Collapse.
+Journal of Molecular Biology 344(3): 797–811.
+DOI: 10.1016/j.jmb.2004.09.061
+
+[12] Jacob et al., 1999
+The Role of Proline and Glycine in Determining Backbone Flexibility.
+Biophysical Journal 76(3): 1367–1376.
+DOI: 10.1016/S0006-3495(99)77298-X
+
+[13] Barlow & Thornton, 1988
+Helix geometry in proteins.
+Journal of Molecular Biology 201(3): 601–619.
+DOI: 10.1016/0022-2836(88)90641-9
+
+[14] Woolfson & Williams, 1990
+The Influence of Proline Residues on Alpha-Helical Structure.
+FEBS Letters 277(1–2): 185–188.
+DOI: 10.1016/0014-5793(90)80839-B
+
+[15] McGaughey et al., 1998
+π-Stacking interactions: Alive and well in proteins.
+Journal of Biological Chemistry 273(25): 15458–15463.
+DOI: 10.1074/jbc.273.25.15458
+
+[16] Infield et al., 2021
+Cation-π Interactions and their Functional Roles in Membrane Proteins.
+Journal of Molecular Biology 433(17): 167035.
+DOI: 10.1016/j.jmb.2021.167035
+
+[17] Peng et al., 2022
+Antibody CDR amino acids underlying the functionality of antibody repertoires.
+Scientific Reports 12: 12555.
+DOI: 10.1038/s41598-022-16841-9
+
+[18] Anishetty et al., 2002
+Tripeptide Analysis of Protein Structures.
+BMC Structural Biology 2: 9.
+DOI: 10.1186/1472-6807-2-9
+
+[19] Vignesh et al., 2024
+Ensemble Deep Learning Model for Protein Secondary Structure Prediction Using NLP Metrics and Explainable AI.
+Results in Engineering 24: 103435.
+DOI: 10.1016/j.rineng.2024.103435
+"""

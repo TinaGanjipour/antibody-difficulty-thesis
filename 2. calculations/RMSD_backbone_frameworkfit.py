@@ -39,9 +39,8 @@ def sort_numkeys(keys: Iterable[NumKey]) -> List[NumKey]:
     return sorted(keys, key=lambda k: (k[0], _ins_sort_key(k[1])))
 
 
-# Reads only CA atoms from the first MODEL (for NMR ensembles or multi-model files it stops after model 1).
-# Discards altlocs except blank or "A" (standard practice).
-# Kabsch. 1976, Lawrence et al. (2019).
+# Extracts per-residue coordinates for N/CA/C/O
+# Also captures B-factors per atom
 def parse_pdb_backbone_by_chain(path: str) -> Dict[str, Chain]:
     tmp: Dict[str, Dict[Tuple[int, str], Dict[str, object]]] = {}
 
@@ -130,10 +129,6 @@ class NumRec:
     atoms: Dict[str, np.ndarray]
     bfac_by_atom: Dict[str, float]
 
-# ANARCI numbers sequences by aligning to HMMs of germline V domains.
-# Below function builds a sequence from the chain’s CA trace.
-# Then calls get_numbered_span() to assign Chothia numbering positions
-# Cyrus Chothia and Arthur M. Lesk. 1987, James Dunbar and Charlotte M. Deane. 2016.
 Produces a map: numbering key → (aa, index, xyz). 
 def anarci_numbering_map(chain: Chain, *, allow: List[str], scheme: str = "chothia") -> Dict[NumKey, NumRec]:
     seq = chain_seq(chain)
@@ -518,8 +513,8 @@ def compute_pair(
         "rmsd_h3_ctx": rmsd_h3_ctx,
         "rmsd_fv_all_ctx": f"{rmsd_fv_all_ctx:.6f}",
         "rmsd_fv_noh3_ctx": f"{rmsd_fv_noh3_ctx_val:.6f}",
-        "pred_conf_h3_bfac_mean": (f"{pred_conf_h3:.6f}" if np.isfinite(pred_conf_h3) else ""),
-        "pred_conf_fv_bfac_mean": (f"{pred_conf_fv_both:.6f}" if np.isfinite(pred_conf_fv_both) else ""),
+        "pred_conf_h3_bfac_mean": (f"{pred_conf_h3:.6f}" if np.isfinite(pred_conf_h3) else ""), # mean B-factor over H3 backbone atoms
+        "pred_conf_fv_bfac_mean": (f"{pred_conf_fv_both:.6f}" if np.isfinite(pred_conf_fv_both) else ""), # mean over Fv
     }
     return rmsd_fv_noh3_ctx_val, diag
 
