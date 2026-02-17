@@ -1,0 +1,14 @@
+col,n_present,n_missing,frac_missing
+h3_len,1136,0,0.0
+h3_entropy,1136,0,0.0
+h3_num_unique,1136,0,0.0
+h3_kd_mean,1136,0,0.0
+h3_frac_hydrophobic,1136,0,0.0
+h3_net_charge_pH7,1136,0,0.0
+h3_kmer3_rarity_dataset,1136,0,0.0
+h3_frac_gly_pro,1136,0,0.0
+h3_frac_aromatic,1136,0,0.0
+pred_conf_h3_bfac_mean,1136,0,0.0
+pred_conf_fv_bfac_mean,1136,0,0.0
+h3_has_glyco_motif,1136,0,0.0
+h3_rmsd,1136,0,0.0

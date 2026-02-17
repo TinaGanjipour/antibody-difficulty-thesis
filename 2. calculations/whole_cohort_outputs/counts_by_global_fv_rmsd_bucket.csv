@@ -1,0 +1,7 @@
+method,rmsd_bucket,n
+ABodyBuilder2,Adequate (4–6Å),2
+ABodyBuilder2,Excellent (≤2Å),520
+ABodyBuilder2,Good (2–4Å),44
+IGFold,Adequate (4–6Å),1
+IGFold,Excellent (≤2Å),532
+IGFold,Good (2–4Å),39

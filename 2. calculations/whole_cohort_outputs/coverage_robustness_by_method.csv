@@ -1,0 +1,3 @@
+method,n_total,n_ok_global,n_ok_h3,n_other_error,n_no_chain_map,n_missing_ref,n_h3_error_nonempty
+ABodyBuilder2,690,566,565,111,12,1,0
+IGFold,698,572,571,113,12,1,0
