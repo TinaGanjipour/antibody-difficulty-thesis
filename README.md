@@ -89,7 +89,7 @@ This project:
 
 ### 4) Chain mapping + residue correspondence
 - Map predicted to experimental VH/VL using ANARCI (Chothia numbering) to ensure immunoglobulin-aware residue matching.
-- Accept mappings only if identity/coverage/length thresholds are satisfied (see thesis Methods for exact thresholds).
+- Accept mappings only if identity/coverage/length thresholds are satisfied.
 
 ### 5) Structural evaluation
 Compute RMSD using backbone atoms (N, CA, C, O) and rigid-body superposition (Kabsch):
