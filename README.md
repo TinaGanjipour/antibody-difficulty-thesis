@@ -1,4 +1,3 @@
-# antibody-difficulty-thesis
 # Analyzing and Quantifying Antibody Structure Prediction Difficulty
 
 Code and analysis for the MSc Bioinformatics & Systems Biology (joint UvA–VU) minor project thesis:
