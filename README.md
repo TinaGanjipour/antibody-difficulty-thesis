@@ -28,21 +28,40 @@ This project:
 - A sequence-only “difficulty score” was trained using XGBoost (classification + regression) and interpreted with SHAP. CDR-H3 length and protein language-model embeddings (ESM2) carried the strongest signal.
 
 ## Repository content
-
-- `data/`
-  - `raw/` — raw exports (e.g., SAbDab tables)
-  - `processed/` — cleaned tables, feature tables, sample sheets, deduplicated target lists
-- `structures/`
-  - `rcsb_mmcif/` — downloaded experimental mmCIF files
-  - `predictions/`
-    - `igfold/`
-    - `abodybuilder2/`
-    - `alphafold3/`
-- `src/` — Python modules implementing curation, mapping, RMSD evaluation, and ML training
-- `notebooks/` — exploratory analysis / figure generation notebooks
-- `scripts/` — CLI-style scripts for end-to-end runs
-- `results/` — tables, plots, logs, and summary outputs
-- `env/` or `requirements/` — environment specs (micromamba/pip)
+├── data/
+│   ├── raw/
+│   │   ├── sabdab/                # Raw SAbDab summary tables
+│   │   └── pdb_mmcif/             # Downloaded experimental mmCIF files from RCSB
+│   ├── processed/
+│   │   ├── manifest/              # Sample sheets, pair indices, manifests
+│   │   ├── exports/               # Cleaned tables used in analysis (CSV/TSV)
+│   │   └── qc/                    # QC outputs (mmCIF validation, checks)
+│   └── .ipynb_checkpoints/        # Jupyter artifacts
+│
+├── rmsd/
+│   ├── rcsb/                      # Experimental PDB structures (PDB format)
+│   ├── whole_cohort_outputs/      # RMSD analyses, ECDFs, scatter/violin plots
+│   ├── results_seq.csv            # Sequence-level RMSD summaries
+│   └── predictions.csv            # Predictor-specific RMSD tables
+│
+├── model/
+│   ├── train_difficulty_score*.py # Difficulty score training script
+│   ├── h3_features.csv            # Final feature table for CDR-H3
+│   ├── outputs/                   # Main model outputs (figures, CSVs, JSON)
+│   ├── outputs_engineered/        # Engineered-feature models
+│   ├── outputs_ablation*/         # Feature ablation studies
+│   ├── outputs_esm_alpha10/       # Final ESM-based thesis models & plots
+│   ├── out_diff/, out_bound/,     # Alternative modeling variants
+│   └── *.joblib                   # Trained regressors / classifiers
+│
+├── notebooks/
+│   ├── dataset.ipynb              # Dataset construction & inspection
+│   ├── ANARCI.py                  # Numbering / annotation helpers
+│
+├── environment.yml                # Micromamba / conda environment
+├── environment.lock.yml           # Locked environment (reproducibility)
+├── .pre-commit-config.yaml        # Formatting & hygiene hooks
+└── .gitignore
 
 ## Methods overview (pipeline)
 
