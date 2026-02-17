@@ -1,15 +1,21 @@
+"""
+ANARCI (Dunbar & Deane, 2015) helpers for antibody variable-domain
+"""
 from __future__ import annotations
 from typing import Any, Dict, List, Optional, Tuple
 import re
 import pandas as pd
 from contextlib import redirect_stdout, redirect_stderr
 import os
-
 from anarci import run_anarci
 
-AA20 = set("ACDEFGHIKLMNPQRSTVWY")
-SCHEME = "chothia"
+# https://www.cryst.bbk.ac.uk/education/AminoAcid/the_twenty.html
+# https://www.imgt.org/IMGTeducation/Aide-memoire/_UK/aminoacids/IMGTclasses.html
 
+AA20 = set("ACDEFGHIKLMNPQRSTVWY") # cleans input sequences to the 20 standard amino acids
+SCHEME = "chothia" #numbering scheme
+
+# input sequences may contain non-AA characters which are removed
 def aa_clean(s: str) -> str:
     return re.sub(rf"[^{''.join(sorted(AA20))}]", "", str(s or "").upper())
 
@@ -18,6 +24,15 @@ def base_num(nlabel: Any) -> Optional[int]:
     return int(m.group(1)) if m else None
 
 def anarci_invoke(pairs, *, scheme: str, output: bool = False, allow=None):
+    """
+    keeping our pipeline logs clean by minimizing the noise in logs by redirecting stdout/stderr
+    Parameters:
+        1. pairs (iterable):  (id, sequence) tuples
+        2. numbering scheme (str): chothia
+        3. allow (None|str|iterable): allowed chain types
+            none means allow all of "H","K",and "L" 
+            e.g. a string like "HK" is accepted and normalized to a list
+    """
     scheme = (scheme or SCHEME).lower()
     valid = {"H", "K", "L"}
     if allow is None:
@@ -49,6 +64,7 @@ def anarci_invoke(pairs, *, scheme: str, output: bool = False, allow=None):
         raise RuntimeError("ANARCI returned no results; check inputs/allow parameter.")
     return out
 
+# triplets: position (number_label, insertion), amino_acid
 def _extract_numbering_triples_any(raw: Any) -> List[Tuple[Tuple[Any, Any], str]]:
     def is_pair_list_with_num_ins(x):
         return isinstance(x, list) and len(x) > 0 and all(
@@ -162,6 +178,14 @@ def extract_v_domain_anarci_only(seq: str, allow_types: List[str]) -> Tuple[str,
 def cdr_slice_from_triples(
     triples: List[Tuple[Tuple[Any, Any], str]], start_num: int, end_num: int
 ) -> Tuple[object, object, str]:
+    """
+    Slices a numbered CDR regions from ANARCI position triples ((position (number_label, insertion), amino_acid))
+    seq is the extracted amino-acid string
+    start_index/end_index are indices into the triples list 
+    We included all residues with base number within [start_num, end_num], 
+    and insertion residues at the boundaries: (start_num + insertion) and (end_num + insertion).
+    Returns start_index, end_index, and sequence_string.
+    """
     idx, aa = [], []
     for i, (ni_ii, a) in enumerate(triples):
         if not a or a == "-":
@@ -180,10 +204,13 @@ def cdr_slice_from_triples(
         return (pd.NA, pd.NA, "")
     return (min(idx), max(idx), "".join(aa))
 
+# If another similar project provides a canonical CDR-definition utility (e.g., IMGT vs Chothia vs Kabat),
+# we can wire it in below because the thesis pipeline can run without it since we fall back to numeric spans:
 try:
     from yourmodule.cdrdefs import annotate_regions
 except Exception:
     annotate_regions = None
+
 
 def cdr_labels_from_triples(
     triples: List[Tuple[Tuple[Any, Any], str]],
@@ -206,6 +233,15 @@ def annotate_cdrs_anarci(
     *,
     scheme: str = SCHEME,
 ) -> Dict[str, Any]:
+    """
+    Annotate CDR sequences from a variable-domain sequence using ANARCI numbering.
+    - This function uses Chothia numeric spans for CDR extraction:
+        Heavy: H1=26–32, H2=52–56, H3=95–102
+        Light: L1=24–34, L2=50–56, L3=89–97
+    (Chothia & Lesk, 1987, Al-Lazikani et al., 1997, Zhu et al., 2024)
+    - These spans are a definition choice. Other schemes/definitions (IMGT/Kabat/etc) can shift boundaries and insertion placement.
+    Output: a dict with CDR start/end indices into the numbered triple list, the extracted sequences, and the inferred chain type.
+    """
     out = {
         "cdr_h1_start": pd.NA, "cdr_h1_end": pd.NA, "h1_seq": "",
         "cdr_h2_start": pd.NA, "cdr_h2_end": pd.NA, "h2_seq": "",
@@ -270,3 +306,12 @@ def get_numbered_span(seq: str, allow: List[str], scheme: str = "chothia"):
             n_label, ins = pos, ""
         triples_3.append((n_label, ins, aa))
     return triples_3
+"""
+References:
+1. Chothia & Lesk, 1987
+2. Al-Lazikani et al., 1997
+3. Abanades et al., 2023
+4. Ruffolo et al., 2023
+5. Dunbar & Deane, 2015
+6. Zhu et al., 2024
+"""
