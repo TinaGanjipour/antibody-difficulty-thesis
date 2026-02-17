@@ -21,12 +21,6 @@ This project:
    - probability that a target is difficult to predict/hard (calibrated classification)
 
 
-## Key results
-
-- IgFold and ABodyBuilder2 show similar global Fv accuracy (~1.2 Å mean RMSD), and framework-only RMSD improves when excluding CDR-H3.
-- Sequence features associated with increased difficulty include: CDR-H3 length, higher entropy, compositional extremity (charge/hydrophobicity), and rare motifs.
-- A sequence-only “difficulty score” was trained using XGBoost (classification + regression) and interpreted with SHAP. CDR-H3 length and protein language-model embeddings (ESM2) carried the strongest signal.
-
 ## Repository content
 * `data/`
 
@@ -110,3 +104,10 @@ Compute RMSD using backbone atoms (N, CA, C, O) and rigid-body superposition (Ka
   - XGBoost regression (predict expected RMSD)
   - XGBoost classifier (predict hard/not-hard), with probability calibration (Platt scaling via `CalibratedClassifierCV`)
 - Interpret with SHAP.
+
+
+## Key results
+
+- IgFold and ABodyBuilder2 show similar global Fv accuracy (~1.2 Å mean RMSD), and framework-only RMSD improves when excluding CDR-H3.
+- Sequence features associated with increased difficulty include: CDR-H3 length, higher entropy, compositional extremity (charge/hydrophobicity), and rare motifs.
+- A sequence-only “difficulty score” was trained using XGBoost (classification + regression) and interpreted with SHAP. CDR-H3 length and protein language-model embeddings (ESM2) carried the strongest signal.
