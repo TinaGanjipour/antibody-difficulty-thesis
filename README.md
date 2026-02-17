@@ -14,9 +14,10 @@ Accurate antibody structural modeling is essential for therapeutic design and me
 
 This project:
 1. Curates a non-redundant benchmark of 698 antibody structures from SAbDab.
-2. After submission of dataset to ABodyBuilder2 and IgFold, evaluates predictions against experimental structures via an immunoglobulin-aware RMSD pipeline (framework/Fv, Fv without H3, CDR-H3 context RMSD, and CDR-H3 local RMSD).
+2. After submission of dataset to ABodyBuilder2 and IgFold, evaluates predictions against experimental structures.
 3. Uses AlphaFold3 as a tertiary evaluator to contextualize inter-method disagreements (diagnostic, not the main benchmark).
-4. Computes sequence-derived CDR-H3 features (length, entropy, composition extremity, motif rarity, etc.) and trains ML models to predict:
+4. Computes sequence-derived CDR-H3 features (length, entropy, composition extremity, motif rarity, etc.)
+5. Trains ML models to predict:
    - expected CDR-H3 error (regression), and
    - probability that a target is difficult to predict/hard (calibrated classification)
 
