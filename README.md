@@ -28,6 +28,7 @@ This project:
 - A sequence-only “difficulty score” was trained using XGBoost (classification + regression) and interpreted with SHAP. CDR-H3 length and protein language-model embeddings (ESM2) carried the strongest signal.
 
 ## Repository content
+.
 ├── data/
 │   ├── raw/
 │   │   ├── sabdab/                # Raw SAbDab summary tables
@@ -69,7 +70,7 @@ This project:
 - Start from SAbDab metadata export and the non-redundant set.
 - Filter to X-ray structures ≤ 3.0 Å resolution.
 - Filter deposition dates to reduce overlap with model training data (see thesis for the exact cutoff used).
-- Create a sample sheet of (PDB ID, heavy chain ID, light chain ID) triplets and associated metadata.
+- Create a sample sheet of (PDB ID, heavy chain ID, light chain ID) triplets and associated metadata using ANARCI (Chothia numbering).
 
 ### 2) Experimental structure fetch + validation
 - Download mmCIF files from the wwPDB / RCSB distribution.
