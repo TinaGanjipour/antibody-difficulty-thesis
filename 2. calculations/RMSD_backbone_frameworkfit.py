@@ -1,3 +1,4 @@
+
 from __future__ import annotations
 import argparse
 import csv
@@ -37,6 +38,10 @@ def _ins_sort_key(ins: str) -> Tuple[int, str]:
 def sort_numkeys(keys: Iterable[NumKey]) -> List[NumKey]:
     return sorted(keys, key=lambda k: (k[0], _ins_sort_key(k[1])))
 
+
+# Reads only CA atoms from the first MODEL (for NMR ensembles or multi-model files it stops after model 1).
+# Discards altlocs except blank or "A" (standard practice).
+# Kabsch. 1976, Lawrence et al. (2019).
 def parse_pdb_backbone_by_chain(path: str) -> Dict[str, Chain]:
     tmp: Dict[str, Dict[Tuple[int, str], Dict[str, object]]] = {}
 
@@ -125,6 +130,11 @@ class NumRec:
     atoms: Dict[str, np.ndarray]
     bfac_by_atom: Dict[str, float]
 
+# ANARCI numbers sequences by aligning to HMMs of germline V domains.
+# Below function builds a sequence from the chain’s CA trace.
+# Then calls get_numbered_span() to assign Chothia numbering positions
+# Cyrus Chothia and Arthur M. Lesk. 1987, James Dunbar and Charlotte M. Deane. 2016.
+Produces a map: numbering key → (aa, index, xyz). 
 def anarci_numbering_map(chain: Chain, *, allow: List[str], scheme: str = "chothia") -> Dict[NumKey, NumRec]:
     seq = chain_seq(chain)
 
@@ -271,6 +281,9 @@ def seq_by_keys(num_map: Dict[NumKey, NumRec], keys: Set[NumKey]) -> str:
     ks = sort_numkeys(keys)
     return "".join(num_map[k].aa for k in ks if k in num_map and num_map[k].aa in AA20)
 
+# Below function tries to match to each predicted chain, for each reference chain (VH and VL), by comparing overlap in numbering space. 
+# It filters candidates by thresholds (identity, aligned length, coverage).
+# Shirai et al., 1999., Jeliazkov et al., 2018.
 def choose_chain_mapping_numbered(
     ref_chains: Dict[str, Chain],
     pred_chains: Dict[str, Chain],
@@ -593,3 +606,36 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+"""
+References:
+[1] Brennan Abanades, Wing Ki Wong, Fergus Boyles, and Charlotte M. Deane. 2023. ImmuneBuilder: Deep-Learning models for predicting the structures of immune proteins. Communications Biology 6, 1 (2023), 575. [https://doi.org/10.1038/s42003-023-04927-7](https://doi.org/10.1038/s42003-023-04927-7)
+
+[2] Cadence Design Systems, Inc. [n.d.]. Protein Preparation — OEChem Toolkit Documentation. [https://docs.eyesopen.com/toolkits/cpp/oechemtk/proteinprep.html](https://docs.eyesopen.com/toolkits/cpp/oechemtk/proteinprep.html).
+
+[3] Cyrus Chothia and Arthur M. Lesk. 1987. Canonical structures for the hypervariable regions of immunoglobulins. Journal of Molecular Biology 196, 4 (1987), 901–917. [https://doi.org/10.1016/0022-2836(87)90412-8](https://doi.org/10.1016/0022-2836%2887%2990412-8)
+
+[4] Fabrice PA David and Yum L Yip. 2008. SSMap: a new UniProt-PDB mapping resource for the curation of structural-related information in the UniProt/Swiss-Prot Knowledgebase. BMC Bioinformatics 9 (2008), 391. [https://doi.org/10.1186/1471-2105-9-391](https://doi.org/10.1186/1471-2105-9-391)
+
+[5] James Dunbar, Konrad Krawczyk, Jinwoo Leem, Terry Baker, Angela Fuchs, Guy Georges, Jiahua Shi, and Charlotte M. Deane. 2014. SAbDab: the structural antibody database. Nucleic Acids Research 42, Database issue (2014), D1140–D1146. [https://doi.org/10.1093/nar/gkt1043](https://doi.org/10.1093/nar/gkt1043)
+
+[6] Project Gemmi. 2024. Gemmi: Macromolecular crystallography library. [https://github.com/project-gemmi/gemmi](https://github.com/project-gemmi/gemmi).
+
+[7] Michal Jamroz, Andrzej Kolinski, and Daisuke Kihara. 2016. Ensemble-Based Evaluation for Protein Structure Models. Bioinformatics 32, 12 (2016), i314–i321. [https://doi.org/10.1093/bioinformatics/btw262](https://doi.org/10.1093/bioinformatics/btw262)
+
+[8] Wolfgang Kabsch. 1976. A Solution for the Best Rotation to Relate Two Sets of Vectors. Acta Crystallographica Section A 32, 5 (1976), 922–923. [https://doi.org/10.1107/S0567739476001873](https://doi.org/10.1107/S0567739476001873)
+
+[9] James Lawrence, Javier Bernal, and Christoph Witzgall. 2019. A Purely Algebraic Justification of the Kabsch-Umeyama Algorithm. Journal of Research of the National Institute of Standards and Technology 124 (2019), 1–6. [https://doi.org/10.6028/jres.124.028](https://doi.org/10.6028/jres.124.028)
+
+[10] Pu Liu, Dimitris K. Agrafiotis, and Douglas L. Theobald. 2010. Fast determination of the optimal rotational matrix for macromolecular superpositions. Journal of Computational Chemistry 31, 7 (2010), 1561–1563. [https://doi.org/10.1002/jcc.21439](https://doi.org/10.1002/jcc.21439)
+
+[11] Jeffrey A. Ruffolo, Jeremias Sulam, and Jeffrey J. Gray. 2023. Fast, accurate antibody structure prediction from deep learning on massive set of natural antibodies. Nature Communications 14, 1 (2023), 2389. [https://doi.org/10.1038/s41467-023-38063-x](https://doi.org/10.1038/s41467-023-38063-x)
+
+[12] Zirui Zhu, Hossein Ashrafian, Navid Mohammadian Tabrizi, Emily Matas, Louisa Girard, Haowei Ma, and Edouard C. Nice. 2025. Antibody numbering schemes: advances, comparisons and tools for antibody engineering. Protein Engineering, Design and Selection 38 (2025), gzaf005. [https://doi.org/10.1093/protein/gzaf005](https://doi.org/10.1093/protein/gzaf005)
+
+[13]Jeliazkov, J. R., Sljoka, A., Kuroda, D., Tsuchimura, N., Katoh, N., Tsumoto, K., and Gray, J. J. 2018. Repertoire analysis of antibody CDR-H3 loops suggests affinity maturation does not typically result in rigidification. Frontiers in Immunology 9 (2018), 413.
+https://doi.org/10.3389/fimmu.2018.00413
+
+[14] Shirai, H., Kidera, A., and Nakamura, H. 1999. H3-rules: identification of CDR-H3 structures in antibodies. FEBS Letters 455(1–2) (1999), 188–197.
+https://doi.org/10.1016/S0014-5793(99)00821-2
+"""
