@@ -1,7 +1,6 @@
 # Analyzing and Quantifying Antibody Structure Prediction Difficulty
 
-Code and analysis for the MSc Bioinformatics & Systems Biology (joint UvA–VU) minor project thesis:
-
+Code and analysis for the MSc Bioinformatics & Systems Biology (joint UvA-VU) minor project thesis:
 “Analyzing and Quantifying Antibody Structure Prediction Difficulty”  
 Tina Ganjipour (VUNetID: mra160) — February 17, 2026  
 Vrije Universiteit Amsterdam / Universiteit van Amsterdam, The Netherlands  
